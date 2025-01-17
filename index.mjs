@@ -1,8 +1,7 @@
 import { log } from './log.mjs';
-import { S3 } from '@aws-sdk/client-s3'
+import { S3 } from '@aws-sdk/client-s3';
 
-const s3Client = new S3({ region: 'us-east-1' })
-
+const s3Client = new S3({ region: 'us-east-1' });
 export const handler = async(event) => {
     const record = event.Records[0];
     const Bucket = record.s3.bucket.name;
@@ -12,12 +11,13 @@ export const handler = async(event) => {
         Key,
     });
     const mega_byte = 1024 * 1024;
-    
-    if (getObjectResult.ContentLength > 2 * mega_byte) {
+
+    if (getObjectResult.ContentLength > 1 * mega_byte) {
         log('Objeto muito grande');
+
         return 'Objeto muito grande';
     }
-    
+
     log('Objeto de tamanho OK');
     return 'Objeto de tamanho OK';
 };
